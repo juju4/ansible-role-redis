@@ -20,6 +20,7 @@
     dest: "{{ redis_conf_path }}"
     mode: "{{ redis_conf_mode }}"
   notify: restart redis
+  when: redis_configure
 
 # Setup/install tasks.
 - include_tasks: setup-RedHat.yml
@@ -33,3 +34,5 @@
 
 - name: Ensure Redis is running and enabled on boot.
   service: "name={{ redis_daemon }} state=started enabled=yes"
+  when: redis_configure
+
